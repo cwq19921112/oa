@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <!-- 最新的 Bootstrap 核心 css 文件 -->
+    <!-- 在url上 使用 @标签 可以帮我们 自动加上 contextpath -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script th:src="@{/js/common/jquery-3.4.1.min.js}" ></script>
+    <script th:src="@{/js/bootstrap.min.js}" ></script>
+</head>
+<body>
+<!--登录表单开始     ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
+<form>
+    <div class="form-group">
+        <label for="userName">用户名</label>
+        <input type="text" class="form-control" id="userName" placeholder="请输入用户名">
+    </div>
+    <div class="form-group">
+        <label for="password">密码</label>
+        <input type="password" class="form-control" id="password" placeholder="请输入密码">
+    </div>
+    <button id="reg-submit" type="submit" class="btn btn-default">Submit</button>
+</form>
+<p class="tip"></p>
+<!--登录表单结束     ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
+
+
+<script type="text/javascript">
+    $(function(){
+        $("#reg-submit").click(function(){
+
+            var userName = $("#userName").val();
+            var password = $("#password").val();
+
+            if(userName=="" || password ==""){
+                $(".tip").html("用户名和密码不能为空");
+                $(".tip").css("display","block");
+                return;
+            }else{
+                // 异步注册账号
+                var url = "/account/register";
+                var args = {userName:userName,password:password};
+                $.post(url,args,function(data){
+                    if(data == "success"){
+                        // 跳转页面
+                        window.location.href="/account/reg-success";
+                    }else {
+                        $(".tip").html("用户名或密码错误");
+                        $(".tip").css("display","block");
+                    }
+
+                    console.log(data)
+                });
+
+            }
+
+
+        })
+
+    })
+</script>
+
+</body>
+</html>

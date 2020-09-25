@@ -9,6 +9,7 @@
     <result column="age" jdbcType="INTEGER" property="age" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, `name`, user_name, `password`, age, nick_name, `location`
+    id, `name`, user_name, `password`, age, nick_name, `location`, `role`
   </sql>
   <select id="selectByExample" parameterType="com.chenwuqiang.oa.example.AccountExample" resultMap="BaseResultMap">
     select
@@ -83,6 +84,14 @@
     </if>
     <if test="orderByClause != null">
       order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -103,11 +112,11 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.chenwuqiang.oa.entity.Account" useGeneratedKeys="true">
     insert into account (`name`, user_name, `password`, 
-      age, nick_name, `location`
-      )
+      age, nick_name, `location`, 
+      `role`)
     values (#{name,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{age,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}
-      )
+      #{age,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{role,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.chenwuqiang.oa.entity.Account" useGeneratedKeys="true">
     insert into account
@@ -130,6 +139,9 @@
       <if test="location != null">
         `location`,
       </if>
+      <if test="role != null">
+        `role`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -149,6 +161,9 @@
       </if>
       <if test="location != null">
         #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -182,6 +197,9 @@
       <if test="record.location != null">
         `location` = #{record.location,jdbcType=VARCHAR},
       </if>
+      <if test="record.role != null">
+        `role` = #{record.role,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -195,7 +213,8 @@
       `password` = #{record.password,jdbcType=VARCHAR},
       age = #{record.age,jdbcType=INTEGER},
       nick_name = #{record.nickName,jdbcType=VARCHAR},
-      `location` = #{record.location,jdbcType=VARCHAR}
+      `location` = #{record.location,jdbcType=VARCHAR},
+      `role` = #{record.role,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -221,6 +240,9 @@
       <if test="location != null">
         `location` = #{location,jdbcType=VARCHAR},
       </if>
+      <if test="role != null">
+        `role` = #{role,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -231,7 +253,8 @@
       `password` = #{password,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
       nick_name = #{nickName,jdbcType=VARCHAR},
-      `location` = #{location,jdbcType=VARCHAR}
+      `location` = #{location,jdbcType=VARCHAR},
+      `role` = #{role,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

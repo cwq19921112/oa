@@ -15,7 +15,7 @@ import java.util.List;
 @WebFilter(urlPatterns = "/*")
 public class LoginFilter implements Filter {
     public static final List<String> whiteList = Arrays.asList("/account/validataAccount", "/account/login", "/account/list",
-            "/index", "/css", "/images", "/js", "/druid");
+            "/account/register", "/account/reg-success", "/index", "/css", "/images", "/js", "/druid");
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
