@@ -21,8 +21,8 @@
         <label for="password">密码</label>
         <input type="password" class="form-control" id="password" placeholder="请输入密码">
     </div>
-    <button id="reg-submit" type="submit" class="btn btn-default">Submit</button>
 </form>
+<button id="reg-submit" class="btn btn-default">Submit</button>
 <p class="tip"></p>
 <!--登录表单结束     ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
 
@@ -30,7 +30,7 @@
 <script type="text/javascript">
     $(function(){
         $("#reg-submit").click(function(){
-
+            console.log("submit");
             var userName = $("#userName").val();
             var password = $("#password").val();
 
@@ -41,24 +41,26 @@
             }else{
                 // 异步注册账号
                 var url = "/account/register";
-                var args = {userName:userName,password:password};
-                $.post(url,args,function(data){
-                    if(data == "success"){
-                        // 跳转页面
-                        window.location.href="/account/reg-success";
-                    }else {
-                        $(".tip").html("用户名或密码错误");
-                        $(".tip").css("display","block");
+                $.ajax({
+                    type:"POST",
+                    url:url,
+                    contentType: "application/json; charset=utf-8",
+                    data:JSON.stringify({"userName":userName,"password":password}),
+                    dataType:"json",
+                    success: function(data){
+                        console.log(data.code);
+                        if(data.code == "success"){
+                            // 跳转页面
+                            window.location.href="/account/reg-success";
+                        }else {
+                            $(".tip").html(data.message);
+                            $(".tip").css("display","block");
+                        }
+                        console.log(data);
                     }
-
-                    console.log(data)
                 });
-
             }
-
-
         })
-
     })
 </script>
 

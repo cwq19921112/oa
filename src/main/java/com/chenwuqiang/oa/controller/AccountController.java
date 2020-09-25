@@ -1,10 +1,12 @@
 package com.chenwuqiang.oa.controller;
 
+import com.chenwuqiang.oa.dto.RspDto;
 import com.chenwuqiang.oa.entity.Account;
 import com.chenwuqiang.oa.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,9 +57,10 @@ public class AccountController {
     }
 
     @PostMapping("/register")
-    public String registerPost() {
-
-        return "/account/reg-success";
+    @ResponseBody
+    public RspDto registerPost(@RequestBody Account account) {
+        RspDto rspDto = accountService.register(account);
+        return rspDto;
     }
 
     @RequestMapping("/reg-success")
