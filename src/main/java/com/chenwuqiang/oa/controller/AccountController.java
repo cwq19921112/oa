@@ -3,6 +3,7 @@ package com.chenwuqiang.oa.controller;
 import com.chenwuqiang.oa.dto.RspDto;
 import com.chenwuqiang.oa.entity.Account;
 import com.chenwuqiang.oa.service.AccountService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,8 +46,9 @@ public class AccountController {
     @RequestMapping("/list")
     public String list(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
                        @RequestParam(required = false, defaultValue = "5") Integer pageSize, Model model) {
-        List<Account> list = accountService.findPage(pageNum, pageSize);
-        model.addAttribute("accountList", list);
+        PageInfo<Account> pageInfo = accountService.findPage(pageNum, pageSize);
+        model.addAttribute("accountList", pageInfo.getList());
+        model.addAttribute("pageInfo", pageInfo);
 
         return "/account/list";
     }

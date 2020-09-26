@@ -6,6 +6,7 @@ import com.chenwuqiang.oa.example.AccountExample;
 import com.chenwuqiang.oa.mapper.AccountMapper;
 import com.chenwuqiang.oa.service.AccountService;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -35,11 +36,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<Account> findPage(Integer pageNum, Integer pageSize) {
+    public PageInfo<Account> findPage(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         AccountExample example = new AccountExample();
         List<Account> accountList = accountMapper.selectByExample(example);
-        return accountList;
+        PageInfo<Account> pageInfo = new PageInfo<>(accountList);
+        return pageInfo;
     }
 
     @Override

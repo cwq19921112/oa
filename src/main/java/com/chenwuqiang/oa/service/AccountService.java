@@ -2,13 +2,12 @@ package com.chenwuqiang.oa.service;
 
 import com.chenwuqiang.oa.dto.RspDto;
 import com.chenwuqiang.oa.entity.Account;
-
-import java.util.List;
+import com.github.pagehelper.PageInfo;
 
 public interface AccountService {
     Account validataAccount(String loginName, String password);
 
-    List<Account> findPage(Integer pageNum, Integer pageSize);
+    PageInfo<Account> findPage(Integer pageNum, Integer pageSize);
 
     RspDto register(Account account);
 }
