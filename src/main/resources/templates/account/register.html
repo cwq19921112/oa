@@ -22,8 +22,8 @@
         <input type="password" class="form-control" id="password" placeholder="请输入密码">
     </div>
 </form>
-<button id="reg-submit" class="btn btn-default">Submit</button>
 <p class="tip"></p>
+<button id="reg-submit" class="btn btn-default">Submit</button>
 <!--登录表单结束     ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
 
 
@@ -36,7 +36,7 @@
 
             if(userName=="" || password ==""){
                 $(".tip").html("用户名和密码不能为空");
-                $(".tip").css("display","block");
+                $(".tip").css("color","red");
                 return;
             }else{
                 // 异步注册账号
@@ -54,7 +54,7 @@
                             window.location.href="/account/reg-success";
                         }else {
                             $(".tip").html(data.message);
-                            $(".tip").css("display","block");
+                            $(".tip").css("color","red");
                         }
                         console.log(data);
                     }

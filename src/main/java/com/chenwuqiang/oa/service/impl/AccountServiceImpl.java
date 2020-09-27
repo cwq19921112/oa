@@ -1,5 +1,6 @@
 package com.chenwuqiang.oa.service.impl;
 
+import com.chenwuqiang.oa.dto.AccountDelReqDto;
 import com.chenwuqiang.oa.dto.RspDto;
 import com.chenwuqiang.oa.entity.Account;
 import com.chenwuqiang.oa.example.AccountExample;
@@ -57,5 +58,10 @@ public class AccountServiceImpl implements AccountService {
             return RspDto.buildFail("注册用户失败");
         }
         return RspDto.buildSuccess();
+    }
+
+    @Override
+    public int delete(AccountDelReqDto reqDto) {
+        return accountMapper.deleteByPrimaryKey(reqDto.getId());
     }
 }
