@@ -23,14 +23,14 @@ public class LoginFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String requestURI = request.getRequestURI();
         for (String white : whiteList) {
-            if (requestURI.startsWith(white)) {
+            if (requestURI.contains(white)) {
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;
             }
         }
         Account account = (Account) request.getSession().getAttribute("account");
         if (account == null) {
-            response.sendRedirect("/account/login");
+            response.sendRedirect("/oa/account/login");
             return;
         }
         filterChain.doFilter(servletRequest, servletResponse);

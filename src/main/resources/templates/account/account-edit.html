@@ -39,6 +39,7 @@
 </form>
 <button id="reg-submit" class="btn btn-default">Submit</button>
 <script type="text/javascript">
+    var webPath = "/oa";
     $(function(){
         $("#reg-submit").click(function(){
             console.log("submit");
@@ -51,7 +52,7 @@
             console.log(id);
 
             // 异步注册账号
-            var url = "/account/account-edit";
+            var url = webPath + "/account/account-edit";
             $.ajax({
                 type:"POST",
                 url:url,
@@ -62,8 +63,9 @@
                 success: function(data){
                     console.log(data.code);
                     if(data.code == "success"){
+                        alert("编辑成功");
                         // 跳转页面
-                        window.location.href="/account/list";
+                        window.location.href= webPath + "/account/list";
                     }else {
                         $(".tip").html(data.message);
                         $(".tip").css("color","red");

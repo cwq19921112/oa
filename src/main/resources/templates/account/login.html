@@ -86,6 +86,8 @@
 
 <script type="text/javascript" th:src="@{/js/common/jquery-1.9.0.js}"></script>
 <script type="text/javascript">
+	var webPath = "/oa";
+
 	$(".tab_1").click(function(){
 		$(".login_form1").show();
 		$(".login_form").hide();
@@ -98,9 +100,6 @@
 	})
 
 	//-----------------轮播
-
-
-
 
 	//---------------验证
 
@@ -116,15 +115,12 @@
 				return;
 			}else{
 				// 异步校验账号密码
-
-				var url = "/account/validataAccount";
+				var url = webPath + "/account/validataAccount";
 				var args = {loginName:loginName,password:password};
 				$.post(url,args,function(data){
-
 					if(data == "success"){
 						// 登录成功 跳转页面
-						window.location.href="/index";
-
+						window.location.href= webPath + "/index";
 					}else {
 
 						$(".tip").html("用户名或密码错误");

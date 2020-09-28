@@ -28,6 +28,8 @@
 
 
 <script type="text/javascript">
+    var webPath = "/oa";
+
     $(function(){
         $("#reg-submit").click(function(){
             console.log("submit");
@@ -40,7 +42,7 @@
                 return;
             }else{
                 // 异步注册账号
-                var url = "/account/register";
+                var url = webPath + "/account/register";
                 $.ajax({
                     type:"POST",
                     url:url,
@@ -51,7 +53,7 @@
                         console.log(data.code);
                         if(data.code == "success"){
                             // 跳转页面
-                            window.location.href="/account/reg-success";
+                            window.location.href=webPath + "/account/reg-success";
                         }else {
                             $(".tip").html(data.message);
                             $(".tip").css("color","red");
