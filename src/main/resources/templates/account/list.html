@@ -128,8 +128,8 @@
  	<td th:text="${account.location}">location</td>
     <td th:text="${account.role}"></td>
  	<td>
-      <a href="#">查看</a>
-      <a th:href="@{'javascript:deleteById(' + ${account.id} + ');'}">删除</a>
+      <a th:if="${session.account} != null" th:href="@{/account/account-edit} + '?id=' + ${account.id}">编辑</a>
+      <a th:if="${session.account} != null" th:href="@{'javascript:deleteById(' + ${account.id} + ');'}">删除</a>
     </td>
 
  </tr>

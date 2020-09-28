@@ -82,4 +82,18 @@ public class AccountController {
             return RspDto.buildFail("删除失败");
         }
     }
+
+    @GetMapping("/account-edit")
+    public String info(@RequestParam(name = "id") Integer id, Model model) {
+        Account account = accountService.findById(id);
+        model.addAttribute("account", account);
+        return "/account/account-edit";
+    }
+
+    @PostMapping("/account-edit")
+    @ResponseBody
+    public RspDto info(@RequestBody Account account) {
+        accountService.editAccount(account);
+        return RspDto.buildSuccess();
+    }
 }

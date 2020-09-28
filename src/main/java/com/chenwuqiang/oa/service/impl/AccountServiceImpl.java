@@ -64,4 +64,14 @@ public class AccountServiceImpl implements AccountService {
     public int delete(AccountDelReqDto reqDto) {
         return accountMapper.deleteByPrimaryKey(reqDto.getId());
     }
+
+    @Override
+    public Account findById(Integer id) {
+        return accountMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void editAccount(Account account) {
+        accountMapper.updateByPrimaryKeySelective(account);
+    }
 }

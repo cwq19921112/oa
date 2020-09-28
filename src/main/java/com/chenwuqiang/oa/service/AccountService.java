@@ -13,4 +13,8 @@ public interface AccountService {
     RspDto register(Account account);
 
     int delete(AccountDelReqDto reqDto);
+
+    Account findById(Integer id);
+
+    void editAccount(Account account);
 }

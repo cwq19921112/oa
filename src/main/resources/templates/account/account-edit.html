@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户详情</title>
+    <!-- 最新的 Bootstrap 核心 css 文件 -->
+    <!-- 在url上 使用 @标签 可以帮我们 自动加上 contextpath -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script th:src="@{/js/common/jquery-3.4.1.min.js}" ></script>
+    <script th:src="@{/js/bootstrap.min.js}" ></script>
+</head>
+<body>
+<form>
+    <div class="form-group">
+        <label for="id">工号</label>
+        <input th:value="${account.id}" type="number" class="form-control" id="id" placeholder="请输入用户名" readonly>
+    </div>
+    <div class="form-group">
+        <label for="userName">用户名</label>
+        <input th:value="${account.userName}" type="text" class="form-control" id="userName" placeholder="请输入用户名" readonly>
+    </div>
+    <div class="form-group">
+        <label for="nickName">昵称</label>
+        <input th:value="${account.nickName}" type="text" class="form-control" id="nickName" placeholder="请输入用户昵称">
+    </div>
+    <div class="form-group">
+        <label for="age">年龄</label>
+        <input th:value="${account.age}" type="number" class="form-control" id="age" placeholder="请输入用户年龄">
+    </div>
+    <div class="form-group">
+        <label for="location">地址</label>
+        <input th:value="${account.location}" type="text" class="form-control" id="location" placeholder="请输入用户地址">
+    </div>
+    <div class="form-group">
+        <label for="role">角色</label>
+        <input th:value="${account.role}" type="text" class="form-control" id="role" placeholder="请输入用户角色">
+    </div>
+</form>
+<button id="reg-submit" class="btn btn-default">Submit</button>
+<script type="text/javascript">
+    $(function(){
+        $("#reg-submit").click(function(){
+            console.log("submit");
+            var id = $("#id").val();
+            var password = $("#password").val();
+            var nickName = $("#nickName").val();
+            var age = $("#age").val();
+            var location = $("#location").val();
+            var role = $("#role").val();
+            console.log(id);
+
+            // 异步注册账号
+            var url = "/account/account-edit";
+            $.ajax({
+                type:"POST",
+                url:url,
+                contentType: "application/json; charset=utf-8",
+                data:JSON.stringify({"id":id,"password":password,"nickName":nickName,"age":age
+                ,"location":location,"role":role}),
+                dataType:"json",
+                success: function(data){
+                    console.log(data.code);
+                    if(data.code == "success"){
+                        // 跳转页面
+                        window.location.href="/account/list";
+                    }else {
+                        $(".tip").html(data.message);
+                        $(".tip").css("color","red");
+                    }
+                    console.log(data);
+                }
+            });
+
+        })
+    })
+</script>
+
+</body>
+</html>
