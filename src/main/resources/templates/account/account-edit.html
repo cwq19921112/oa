@@ -11,35 +11,40 @@
     <script th:src="@{/js/bootstrap.min.js}" ></script>
 </head>
 <body>
-<form>
+<form action="/oa/account/account-edit" method="post" enctype ="multipart/form-data">
     <div class="form-group">
         <label for="id">工号</label>
-        <input th:value="${account.id}" type="number" class="form-control" id="id" placeholder="请输入用户名" readonly>
+        <input th:value="${account.id}" name="id" type="number" class="form-control" id="id" placeholder="请输入用户名" readonly>
     </div>
     <div class="form-group">
         <label for="userName">用户名</label>
-        <input th:value="${account.userName}" type="text" class="form-control" id="userName" placeholder="请输入用户名" readonly>
+        <input th:value="${account.userName}" name="userName" type="text" class="form-control" id="userName" placeholder="请输入用户名" readonly>
     </div>
     <div class="form-group">
         <label for="nickName">昵称</label>
-        <input th:value="${account.nickName}" type="text" class="form-control" id="nickName" placeholder="请输入用户昵称">
+        <input th:value="${account.nickName}" name="nickName" type="text" class="form-control" id="nickName" placeholder="请输入用户昵称">
     </div>
     <div class="form-group">
         <label for="age">年龄</label>
-        <input th:value="${account.age}" type="number" class="form-control" id="age" placeholder="请输入用户年龄">
+        <input th:value="${account.age}" name="age" type="number" class="form-control" id="age" placeholder="请输入用户年龄">
     </div>
     <div class="form-group">
         <label for="location">地址</label>
-        <input th:value="${account.location}" type="text" class="form-control" id="location" placeholder="请输入用户地址">
+        <input th:value="${account.location}" name="location" type="text" class="form-control" id="location" placeholder="请输入用户地址">
     </div>
     <div class="form-group">
         <label for="role">角色</label>
-        <input th:value="${account.role}" type="text" class="form-control" id="role" placeholder="请输入用户角色">
+        <input th:value="${account.role}" name="role" type="text" class="form-control" id="role" placeholder="请输入用户角色">
     </div>
+    <div class="form-group">
+        <label for="filename">头像</label>
+        <input type="file" name="filename" id="filename">
+        <p class="help-block">Example block-level help text here.</p>
+    </div>
+    <button id="reg-submit" type="submit" class="btn btn-default">Submit</button>
 </form>
-<button id="reg-submit" class="btn btn-default">Submit</button>
 <script type="text/javascript">
-    var webPath = "/oa";
+    /*var webPath = "/oa";
     $(function(){
         $("#reg-submit").click(function(){
             console.log("submit");
@@ -75,7 +80,7 @@
             });
 
         })
-    })
+    })*/
 </script>
 
 </body>

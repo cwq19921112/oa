@@ -72,8 +72,8 @@
      
      <!--  未登录用户 -->
       <ul th:if="${session.account} ==null" class="nav navbar-nav navbar-right">
-        <li><a href="/account/register">注册</a></li>
-        <li><a href="/account/login">登录</a></li>
+        <li><a th:href="@{/account/register}">注册</a></li>
+        <li><a th:href="@{/account/login}">登录</a></li>
       </ul>
       
      

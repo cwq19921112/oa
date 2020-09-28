@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -91,9 +92,8 @@ public class AccountController {
     }
 
     @PostMapping("/account-edit")
-    @ResponseBody
-    public RspDto info(@RequestBody Account account) {
+    public String info(MultipartFile filename, Account account) {
         accountService.editAccount(account);
-        return RspDto.buildSuccess();
+        return "redirect:/account/list";
     }
 }
