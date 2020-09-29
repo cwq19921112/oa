@@ -50,12 +50,12 @@ public class AccountController {
         model.addAttribute("accountList", pageInfo.getList());
         model.addAttribute("pageInfo", pageInfo);
 
-        return "/account/list";
+        return "account/list";
     }
 
     @GetMapping("/register")
     public String register() {
-        return "/account/register";
+        return "account/register";
     }
 
     @PostMapping("/register")
@@ -68,7 +68,7 @@ public class AccountController {
     @RequestMapping("/reg-success")
     public String regSuccess() {
 
-        return "/account/reg-success";
+        return "account/reg-success";
     }
 
     @PostMapping("/delete")
@@ -86,7 +86,7 @@ public class AccountController {
     public String info(@RequestParam(name = "id") Integer id, Model model) {
         Account account = accountService.findById(id);
         model.addAttribute("account", account);
-        return "/account/account-edit";
+        return "account/account-edit";
     }
 
     @PostMapping("/account-edit")

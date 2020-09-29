@@ -46,7 +46,7 @@
           </a>
         
           <ul class="dropdown-menu">
-            <li class="active"><a href="/account/list">用户列表</a></li>
+            <li class="active"><a th:href="@{/account/list}">用户列表</a></li>
             <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
             <li role="separator" class="divider"></li>
@@ -76,7 +76,7 @@
       </ul>
 
       <ul th:if="${session.account} !=null" class="nav navbar-nav navbar-right">
-        <img th:src="${session.account.headImgPath} == null ? ${/images/test.jpg} : @{${session.account.headImgPath}}" width="50px" alt="">
+        <img th:src="${session.account.headImgPath} == null ? @{/images/test.jpg} : @{${session.account.headImgPath}}" width="50px" alt="">
       </ul>
 
        <!-- 已登录用户    ↓ --> 
