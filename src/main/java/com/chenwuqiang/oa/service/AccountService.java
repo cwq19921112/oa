@@ -4,6 +4,7 @@ import com.chenwuqiang.oa.dto.AccountDelReqDto;
 import com.chenwuqiang.oa.dto.RspDto;
 import com.chenwuqiang.oa.entity.Account;
 import com.github.pagehelper.PageInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface AccountService {
     Account validataAccount(String loginName, String password);
@@ -16,5 +17,5 @@ public interface AccountService {
 
     Account findById(Integer id);
 
-    void editAccount(Account account);
+    void editAccount(Account account, MultipartFile filename) throws Exception;
 }

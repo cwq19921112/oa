@@ -75,8 +75,8 @@
         <li><a th:href="@{/account/login}">登录</a></li>
       </ul>
 
-      <ul th:if="${session.account} ==null" class="nav navbar-nav navbar-right">
-        <img th:src="@{/images/test.jpg}" width="50px" alt="">
+      <ul th:if="${session.account} !=null" class="nav navbar-nav navbar-right">
+        <img th:src="${session.account.headImgPath} == null ? ${/images/test.jpg} : @{${session.account.headImgPath}}" width="50px" alt="">
       </ul>
 
        <!-- 已登录用户    ↓ --> 
@@ -102,7 +102,6 @@
     
   </div><!-- /.container-fluid -->
 </nav>
-<img th:src="@{images/test.jpg}" alt="">
 
 
 <!--  导航栏                      结束  			↑       -->

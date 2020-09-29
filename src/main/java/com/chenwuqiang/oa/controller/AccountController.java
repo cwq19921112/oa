@@ -90,8 +90,8 @@ public class AccountController {
     }
 
     @PostMapping("/account-edit")
-    public String info(MultipartFile filename, Account account) {
-        accountService.editAccount(account);
+    public String info(MultipartFile filename, Account account) throws Exception {
+        accountService.editAccount(account, filename);
         return "redirect:/account/list";
     }
 }

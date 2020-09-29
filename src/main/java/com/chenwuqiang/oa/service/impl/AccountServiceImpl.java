@@ -9,17 +9,25 @@ import com.chenwuqiang.oa.service.AccountService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountMapper accountMapper;
+
+    @Value("${oa.uploadPath}")
+    private String uploadPath;
 
     @Override
     public Account validataAccount(String loginName, String password) {
@@ -71,7 +79,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void editAccount(Account account) {
+    public void editAccount(Account account, MultipartFile filename) throws Exception{
+        if (filename != null) {
+            String fileName = UUID.randomUUID() + filename.getOriginalFilename();
+            String path = uploadPath + fileName;
+            Files.write(new File(path).toPath(), filename.getBytes());
+            account.setHeadImgPath("/" + fileName);
+        }
         accountMapper.updateByPrimaryKeySelective(account);
     }
 }
