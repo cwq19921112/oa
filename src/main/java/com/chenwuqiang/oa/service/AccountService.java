@@ -6,6 +6,8 @@ import com.chenwuqiang.oa.entity.Account;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface AccountService {
     Account validataAccount(String loginName, String password);
 
@@ -17,5 +19,5 @@ public interface AccountService {
 
     Account findById(Integer id);
 
-    void editAccount(Account account, MultipartFile filename) throws Exception;
+    void editAccount(HttpServletRequest request, Account account, MultipartFile filename) throws Exception;
 }

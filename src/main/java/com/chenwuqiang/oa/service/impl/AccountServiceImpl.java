@@ -15,6 +15,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.List;
@@ -79,12 +80,21 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void editAccount(Account account, MultipartFile filename) throws Exception{
+    public void editAccount(HttpServletRequest request, Account account, MultipartFile filename) throws Exception{
         if (filename != null) {
             String fileName = UUID.randomUUID() + filename.getOriginalFilename();
             String path = uploadPath + fileName;
             Files.write(new File(path).toPath(), filename.getBytes());
             account.setHeadImgPath("/" + fileName);
+            
+            // 查用户
+            Account existAccount = accountMapper.selectByPrimaryKey(account.getId());
+            if (existAccount!=null && !StringUtils.isEmpty(existAccount.getHeadImgPath())) {
+                // 删除旧的头像文件
+                new File(uploadPath + "/" + existAccount.getHeadImgPath()).delete();
+            }
+            // 更新session
+            request.getSession().setAttribute("account", account);
         }
         accountMapper.updateByPrimaryKeySelective(account);
     }
