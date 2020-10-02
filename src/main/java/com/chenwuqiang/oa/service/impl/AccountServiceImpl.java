@@ -1,5 +1,6 @@
 package com.chenwuqiang.oa.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chenwuqiang.oa.dto.AccountDelReqDto;
 import com.chenwuqiang.oa.dto.RspDto;
 import com.chenwuqiang.oa.entity.Account;
@@ -47,6 +48,10 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public PageInfo<Account> findPage(Integer pageNum, Integer pageSize) {
+        List<Account> accountsP = accountMapper.selectByPermission();
+        Account account = accountsP.get(0);
+        System.out.println("PAccount: " + JSONObject.toJSONString(account));
+
         PageHelper.startPage(pageNum, pageSize);
         AccountExample example = new AccountExample();
         List<Account> accountList = accountMapper.selectByExample(example);

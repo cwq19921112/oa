@@ -2,6 +2,7 @@ package com.chenwuqiang.oa.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 
@@ -29,6 +30,10 @@ public class Account implements Serializable {
     private Date createTime;
 
     private Date updateTime;
+
+    private List<Role> roleList;
+
+    private List<Permission> permissionList;
 
     private static final long serialVersionUID = 1L;
 
@@ -118,6 +123,22 @@ public class Account implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
+
+    public List<Permission> getPermissionList() {
+        return permissionList;
+    }
+
+    public void setPermissionList(List<Permission> permissionList) {
+        this.permissionList = permissionList;
     }
 
     @Override

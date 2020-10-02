@@ -5,10 +5,10 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="uri" jdbcType="VARCHAR" property="uri" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="c" jdbcType="TINYINT" property="c" />
-    <result column="r" jdbcType="TINYINT" property="r" />
-    <result column="u" jdbcType="TINYINT" property="u" />
-    <result column="d" jdbcType="TINYINT" property="d" />
+    <result column="c" javaType="boolean" jdbcType="TINYINT" property="c" />
+    <result column="r" javaType="boolean" jdbcType="TINYINT" property="r" />
+    <result column="u" javaType="boolean" jdbcType="TINYINT" property="u" />
+    <result column="d" javaType="boolean" jdbcType="TINYINT" property="d" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
