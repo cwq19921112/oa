@@ -24,4 +24,10 @@ public class PermissionServiceImpl implements PermissionService {
         PageInfo<Permission> pageInfo = new PageInfo<>(accountList);
         return pageInfo;
     }
+
+    @Override
+    public Permission selectById(Integer id) {
+        Permission permission = permissionMapper.selectByPrimaryKey(id);
+        return permission;
+    }
 }

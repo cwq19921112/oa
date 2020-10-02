@@ -5,4 +5,6 @@ import com.github.pagehelper.PageInfo;
 
 public interface PermissionService {
     PageInfo<Permission> findPage(Integer pageNum, Integer pageSize);
+
+    Permission selectById(Integer id);
 }

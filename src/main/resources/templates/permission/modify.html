@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>新增/编辑权限</title>
+
+<!-- 最新的 Bootstrap 核心 css 文件 -->
+<!-- 在url上 使用 @标签 可以帮我们 自动加上 contextpath -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script th:src="@{/js/common/jquery-3.4.1.min.js}" ></script>
+<script th:src="@{/js/bootstrap.min.js}" ></script>
+</head>
+<body>
+新增/编辑权限
+<form>
+  <div class="form-group">
+    <label for="name">权限名称</label>
+    <input th:value="${p.name}" id="name" name="name" type="text" class="form-control" readonly>
+  </div>
+  <div class="form-group">
+    <label for="uri">权限URI</label>
+    <input th:value="${p.uri}" id="uri" name="uri" type="text" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="c">c</label>
+    <input th:value="${p.c}" id="c" name="c" type="checkbox" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="r">r</label>
+    <input th:value="${p.r}" id="r" name="r" type="checkbox" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="u">u</label>
+    <input th:value="${p.u}" id="u" name="u" type="checkbox" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="d">d</label>
+    <input th:value="${p.d}" id="d" name="d" type="checkbox" class="form-control">
+  </div>
+
+  <button id="reg-submit" type="submit" class="btn btn-default">Submit</button>
+</form>
+
+<!--javascript-->
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
