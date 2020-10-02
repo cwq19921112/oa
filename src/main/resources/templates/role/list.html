@@ -106,26 +106,16 @@
 <table class="table table-hover">
  <tr>  
  	<th>序号</th>
- 	<th>工号</th>
- 	<th>loginName</th>
- 	<th>nickName</th>
- 	<th>age</th>
- 	<th>location</th>
-    <th>role</th>
+ 	<th>角色名称</th>
  	<th>操作</th>
  </tr>
  
- <tr th:each="account : ${accountList}">
- 	<td th:text="${accountStat.count}"></td>
- 	<td th:text="${account.id}">工号</td>
- 	<td th:text="${account.userName}">loginName</td>
- 	<td th:text="${account.nickName}">nickName</td>
- 	<td th:text="${account.age}">age</td>
- 	<td th:text="${account.location}">location</td>
-    <td th:text="${account.role}"></td>
+ <tr th:each="item : ${roleList}">
+ 	<td th:text="${itemStat.count}"></td>
+ 	<td th:text="${item.name}">loginName</td>
  	<td>
-      <a th:if="${session.account} != null" th:href="@{/account/account-edit} + '?id=' + ${account.id}">编辑</a>
-      <a th:if="${session.account} != null" th:href="@{'javascript:deleteById(' + ${account.id} + ');'}">删除</a>
+      <a th:if="${session.account} != null" th:href="@{/account/account-edit} + '?id=' + ${item.id}">编辑</a>
+      <a th:if="${session.account} != null" th:href="@{'javascript:deleteById(' + ${item.id} + ');'}">删除</a>
     </td>
 
  </tr>
