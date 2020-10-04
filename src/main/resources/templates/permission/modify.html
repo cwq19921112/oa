@@ -13,7 +13,7 @@
 </head>
 <body>
 新增/编辑权限
-<form>
+<form id="edit-form">
   <div class="form-group">
     <label for="name">权限名称</label>
     <input th:value="${p.name}" id="name" name="name" type="text" class="form-control" readonly>
@@ -38,13 +38,39 @@
     <label for="d">d</label>
     <input th:value="${p.d}" id="d" name="d" type="checkbox" class="form-control">
   </div>
-
-  <button id="reg-submit" type="submit" class="btn btn-default">Submit</button>
+  <div class="form-group" hidden="hidden">
+    <label for="id">id</label>
+    <input th:value="${p.id}" id="id" name="id" type="text" class="form-control" readonly>
+  </div>
 </form>
+<button id="modify-submit" class="btn btn-default">确定</button>
 
 <!--javascript-->
 <script type="text/javascript">
-
+  $(function modify() {
+    $("#modify-submit").click(function () {
+      console.log("modify submit");
+      var uri = "/oa/permission/modify";
+      var formObj = {};
+      var formArr = $("#edit-form").serializeArray();
+      $.each(formArr, function (i, item) {
+        formObj[item.name] = item.value;
+      })
+      $.ajax({
+        type : "post",
+        url: uri,
+        contentType: "application/json",
+        data: JSON.stringify(formObj),
+        datatype: "json",
+        success: function (msg) {
+          console.log("success: " + JSON.stringify(msg))
+        },
+        error: function (msg) {
+          console.log("error: " + JSON.stringify(msg))
+        }
+      })
+    });
+  })
 </script>
 </body>
 </html>

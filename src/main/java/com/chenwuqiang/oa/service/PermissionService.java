@@ -7,4 +7,6 @@ public interface PermissionService {
     PageInfo<Permission> findPage(Integer pageNum, Integer pageSize);
 
     Permission selectById(Integer id);
+
+    void modify(Permission permission);
 }

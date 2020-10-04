@@ -30,4 +30,9 @@ public class PermissionServiceImpl implements PermissionService {
         Permission permission = permissionMapper.selectByPrimaryKey(id);
         return permission;
     }
+
+    @Override
+    public void modify(Permission permission) {
+        permissionMapper.updateByPrimaryKeySelective(permission);
+    }
 }
