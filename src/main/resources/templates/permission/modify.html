@@ -24,19 +24,19 @@
   </div>
   <div class="form-group">
     <label for="c">c</label>
-    <input th:value="${p.c}" id="c" name="c" type="checkbox" class="form-control">
+    <input th:checked="${p.c}" id="c" name="c" type="checkbox" class="form-control">
   </div>
   <div class="form-group">
     <label for="r">r</label>
-    <input th:value="${p.r}" id="r" name="r" type="checkbox" class="form-control">
+    <input th:checked="${p.r}" id="r" name="r" type="checkbox" class="form-control">
   </div>
   <div class="form-group">
     <label for="u">u</label>
-    <input th:value="${p.u}" id="u" name="u" type="checkbox" class="form-control">
+    <input th:checked="${p.u}" id="u" name="u" type="checkbox" class="form-control">
   </div>
   <div class="form-group">
     <label for="d">d</label>
-    <input th:value="${p.d}" id="d" name="d" type="checkbox" class="form-control">
+    <input th:checked="${p.d}" id="d" name="d" type="checkbox" class="form-control">
   </div>
   <div class="form-group" hidden="hidden">
     <label for="id">id</label>
@@ -55,7 +55,11 @@
       var formArr = $("#edit-form").serializeArray();
       $.each(formArr, function (i, item) {
         formObj[item.name] = item.value;
-      })
+      });
+      formObj["c"] = $("#c").is(':checked');
+      formObj["r"] = $("#r").is(':checked');
+      formObj["u"] = $("#u").is(':checked');
+      formObj["d"] = $("#d").is(':checked');
       $.ajax({
         type : "post",
         url: uri,
@@ -63,7 +67,10 @@
         data: JSON.stringify(formObj),
         datatype: "json",
         success: function (msg) {
-          console.log("success: " + JSON.stringify(msg))
+          console.log("success: " + JSON.stringify(msg));
+          if (msg.code == "success"){
+            window.location.href = "/oa/permission/list";
+          }
         },
         error: function (msg) {
           console.log("error: " + JSON.stringify(msg))
