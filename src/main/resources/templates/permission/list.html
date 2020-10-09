@@ -98,9 +98,9 @@
     
   </div><!-- /.container-fluid -->
 </nav>
-
-
 <!--  导航栏                      结束  			↑       -->
+
+<a th:if="${session.account} != null" th:href="@{/permission/modify}">新增权限</a>
 
 <!--  列表       开始   ↓ -->
 <table class="table table-hover">

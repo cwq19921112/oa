@@ -33,6 +33,13 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public void modify(Permission permission) {
-        permissionMapper.updateByPrimaryKeySelective(permission);
+        Integer id = permission.getId();
+        if (id == null) {
+            // 新增
+            permissionMapper.insertSelective(permission);
+        } else {
+            // 编辑
+            permissionMapper.updateByPrimaryKeySelective(permission);
+        }
     }
 }

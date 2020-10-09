@@ -98,9 +98,9 @@
     
   </div><!-- /.container-fluid -->
 </nav>
-
-
 <!--  导航栏                      结束  			↑       -->
+
+<a th:if="${session.account} != null" th:href="@{/role/add}">添加角色</a>
 
 <!--  列表       开始   ↓ -->
 <table class="table table-hover">
@@ -114,7 +114,7 @@
  	<td th:text="${itemStat.count}"></td>
  	<td th:text="${item.name}">loginName</td>
  	<td>
-      <a th:if="${session.account} != null" th:href="@{/account/account-edit} + '?id=' + ${item.id}">编辑</a>
+      <a th:if="${session.account} != null" th:href="@{/role/add} + '?id=' + ${item.id}">编辑</a>
       <a th:if="${session.account} != null" th:href="@{'javascript:deleteById(' + ${item.id} + ');'}">删除</a>
     </td>
 

@@ -25,4 +25,21 @@ public class RoleServiceImpl implements RoleService {
         PageInfo<Role> pageInfo = new PageInfo<>(accountList);
         return pageInfo;
     }
+
+    @Override
+    public Role findById(Integer id) {
+        return roleMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void add(Role role) {
+        Integer id = role.getId();
+        if (id == null) {
+            // 新增
+            roleMapper.insertSelective(role);
+        } else {
+            // 编辑
+            roleMapper.updateByPrimaryKeySelective(role);
+        }
+    }
 }

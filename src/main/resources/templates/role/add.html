@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>办公无纸化系统</title>
+
+<!-- 最新的 Bootstrap 核心 css 文件 -->
+<!-- 在url上 使用 @标签 可以帮我们 自动加上 contextpath -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script th:src="@{/js/common/jquery-3.4.1.min.js}" ></script>
+<script th:src="@{/js/bootstrap.min.js}" ></script>
+</head>
+<body>
+  角色 添加/编辑
+
+  <form id="edit-form">
+    <div class="form-group">
+      <label for="name">角色名称</label>
+      <input th:value="${role} == null ? '' : ${role.name}" id="name" name="name" type="text" class="form-control">
+    </div>
+    <div class="form-group" hidden="hidden">
+      <label for="id">id</label>
+      <input th:value="${role} == null ? '' : ${role.id}" id="id" name="id" type="text" class="form-control" readonly>
+    </div>
+  </form>
+  <button id="modify-submit" class="btn btn-default">确定</button>
+</body>
+
+<!--javascript-->
+<script type="text/javascript">
+  $(function modify() {
+    $("#modify-submit").click(function () {
+      var uri = "/oa/role/add";
+      var formObj = {};
+      var formArr = $("#edit-form").serializeArray();
+      $.each(formArr, function (i, item) {
+        formObj[item.name] = item.value;
+      });
+      $.ajax({
+        type : "post",
+        url: uri,
+        contentType: "application/json",
+        data: JSON.stringify(formObj),
+        datatype: "json",
+        success: function (msg) {
+          console.log("success: " + JSON.stringify(msg));
+          if (msg.code == "success"){
+            window.location.href = "/oa/role/list";
+          }
+        },
+        error: function (msg) {
+          console.log("error: " + JSON.stringify(msg))
+        }
+      })
+    });
+  })
+</script>
+</html>

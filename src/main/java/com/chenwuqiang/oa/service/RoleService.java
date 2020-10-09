@@ -6,4 +6,8 @@ import com.github.pagehelper.PageInfo;
 public interface RoleService {
 
     PageInfo<Role> findPage(Integer pageNum, Integer pageSize);
+
+    Role findById(Integer id);
+
+    void add(Role role);
 }

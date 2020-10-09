@@ -1,15 +1,14 @@
 package com.chenwuqiang.oa.controller;
 
-import com.chenwuqiang.oa.entity.Account;
+import com.chenwuqiang.oa.dto.RspDto;
+import com.chenwuqiang.oa.entity.Permission;
 import com.chenwuqiang.oa.entity.Role;
-import com.chenwuqiang.oa.service.AccountService;
 import com.chenwuqiang.oa.service.RoleService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/role")
@@ -25,5 +24,20 @@ public class RoleController {
         model.addAttribute("pageInfo", pageInfo);
 
         return "/role/list";
+    }
+
+    @RequestMapping("/add")
+    public String add(@RequestParam(required = false, name = "id") Integer id, Model model) {
+        Role role = roleService.findById(id);
+        model.addAttribute("role", role);
+
+        return "/role/add";
+    }
+
+    @PostMapping("/add")
+    @ResponseBody
+    public RspDto modifyPost(@RequestBody Role role) {
+        roleService.add(role);
+        return RspDto.buildSuccess();
     }
 }

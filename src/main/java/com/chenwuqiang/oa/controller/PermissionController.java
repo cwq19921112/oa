@@ -26,7 +26,7 @@ public class PermissionController {
     }
 
     @RequestMapping("/modify")
-    public String modify(@RequestParam("id") Integer id, Model model) {
+    public String modify(@RequestParam(required = false, name = "id") Integer id, Model model) {
         Permission permission = permissionService.selectById(id);
         model.addAttribute("p", permission);
         return "/permission/modify";

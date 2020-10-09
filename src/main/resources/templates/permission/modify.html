@@ -16,31 +16,31 @@
 <form id="edit-form">
   <div class="form-group">
     <label for="name">权限名称</label>
-    <input th:value="${p.name}" id="name" name="name" type="text" class="form-control" readonly>
+    <input th:value="${p} == null ? '' : ${p.name}" id="name" name="name" type="text" class="form-control" th:readonly="${p} == null ? false : true">
   </div>
   <div class="form-group">
     <label for="uri">权限URI</label>
-    <input th:value="${p.uri}" id="uri" name="uri" type="text" class="form-control">
+    <input th:value="${p} == null ? '' : ${p.uri}" id="uri" name="uri" type="text" class="form-control">
   </div>
   <div class="form-group">
     <label for="c">c</label>
-    <input th:checked="${p.c}" id="c" name="c" type="checkbox" class="form-control">
+    <input th:checked="${p} == null ? false : ${p.c}" id="c" name="c" type="checkbox" class="form-control">
   </div>
   <div class="form-group">
     <label for="r">r</label>
-    <input th:checked="${p.r}" id="r" name="r" type="checkbox" class="form-control">
+    <input th:checked="${p} == null ? false : ${p.r}" id="r" name="r" type="checkbox" class="form-control">
   </div>
   <div class="form-group">
     <label for="u">u</label>
-    <input th:checked="${p.u}" id="u" name="u" type="checkbox" class="form-control">
+    <input th:checked="${p} == null ? false : ${p.u}" id="u" name="u" type="checkbox" class="form-control">
   </div>
   <div class="form-group">
     <label for="d">d</label>
-    <input th:checked="${p.d}" id="d" name="d" type="checkbox" class="form-control">
+    <input th:checked="${p} == null ? false : ${p.d}" id="d" name="d" type="checkbox" class="form-control">
   </div>
   <div class="form-group" hidden="hidden">
     <label for="id">id</label>
-    <input th:value="${p.id}" id="id" name="id" type="text" class="form-control" readonly>
+    <input th:value="${p} == null ? '' : ${p.id}" id="id" name="id" type="text" class="form-control" readonly>
   </div>
 </form>
 <button id="modify-submit" class="btn btn-default">确定</button>
