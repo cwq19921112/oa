@@ -1,7 +1,7 @@
 package com.chenwuqiang.oa.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.chenwuqiang.oa.dto.AccountDelReqDto;
+import com.chenwuqiang.oa.dto.DelReqDto;
 import com.chenwuqiang.oa.dto.RspDto;
 import com.chenwuqiang.oa.entity.Account;
 import com.chenwuqiang.oa.example.AccountExample;
@@ -75,7 +75,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public int delete(AccountDelReqDto reqDto) {
+    public int delete(DelReqDto reqDto) {
         return accountMapper.deleteByPrimaryKey(reqDto.getId());
     }
 

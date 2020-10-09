@@ -1,6 +1,6 @@
 package com.chenwuqiang.oa.service;
 
-import com.chenwuqiang.oa.dto.AccountDelReqDto;
+import com.chenwuqiang.oa.dto.DelReqDto;
 import com.chenwuqiang.oa.dto.RspDto;
 import com.chenwuqiang.oa.entity.Account;
 import com.github.pagehelper.PageInfo;
@@ -15,7 +15,7 @@ public interface AccountService {
 
     RspDto register(Account account);
 
-    int delete(AccountDelReqDto reqDto);
+    int delete(DelReqDto reqDto);
 
     Account findById(Integer id);
 

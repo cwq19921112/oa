@@ -1,6 +1,6 @@
 package com.chenwuqiang.oa.dto;
 
-public class AccountDelReqDto {
+public class DelReqDto {
     private Integer id;
 
     public Integer getId() {

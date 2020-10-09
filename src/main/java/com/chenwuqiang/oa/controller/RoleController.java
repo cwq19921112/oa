@@ -1,7 +1,7 @@
 package com.chenwuqiang.oa.controller;
 
+import com.chenwuqiang.oa.dto.DelReqDto;
 import com.chenwuqiang.oa.dto.RspDto;
-import com.chenwuqiang.oa.entity.Permission;
 import com.chenwuqiang.oa.entity.Role;
 import com.chenwuqiang.oa.service.RoleService;
 import com.github.pagehelper.PageInfo;
@@ -39,5 +39,16 @@ public class RoleController {
     public RspDto modifyPost(@RequestBody Role role) {
         roleService.add(role);
         return RspDto.buildSuccess();
+    }
+
+    @PostMapping("/delete")
+    @ResponseBody
+    public RspDto registerPost(@RequestBody DelReqDto reqDto) {
+        int count = roleService.delete(reqDto);
+        if (count > 0) {
+            return RspDto.buildSuccess();
+        } else {
+            return RspDto.buildFail("删除失败");
+        }
     }
 }

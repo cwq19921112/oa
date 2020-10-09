@@ -1,6 +1,6 @@
 package com.chenwuqiang.oa.controller;
 
-import com.chenwuqiang.oa.dto.AccountDelReqDto;
+import com.chenwuqiang.oa.dto.DelReqDto;
 import com.chenwuqiang.oa.dto.RspDto;
 import com.chenwuqiang.oa.entity.Account;
 import com.chenwuqiang.oa.service.AccountService;
@@ -73,7 +73,7 @@ public class AccountController {
 
     @PostMapping("/delete")
     @ResponseBody
-    public RspDto registerPost(@RequestBody AccountDelReqDto reqDto) {
+    public RspDto registerPost(@RequestBody DelReqDto reqDto) {
         int count = accountService.delete(reqDto);
         if (count > 0) {
             return RspDto.buildSuccess();

@@ -1,5 +1,6 @@
 package com.chenwuqiang.oa.service;
 
+import com.chenwuqiang.oa.dto.DelReqDto;
 import com.chenwuqiang.oa.entity.Role;
 import com.github.pagehelper.PageInfo;
 
@@ -10,4 +11,6 @@ public interface RoleService {
     Role findById(Integer id);
 
     void add(Role role);
+
+    int delete(DelReqDto reqDto);
 }

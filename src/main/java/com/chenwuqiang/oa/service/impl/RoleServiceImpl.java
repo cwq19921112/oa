@@ -1,5 +1,6 @@
 package com.chenwuqiang.oa.service.impl;
 
+import com.chenwuqiang.oa.dto.DelReqDto;
 import com.chenwuqiang.oa.entity.Role;
 import com.chenwuqiang.oa.example.RoleExample;
 import com.chenwuqiang.oa.mapper.RoleMapper;
@@ -41,5 +42,10 @@ public class RoleServiceImpl implements RoleService {
             // 编辑
             roleMapper.updateByPrimaryKeySelective(role);
         }
+    }
+
+    @Override
+    public int delete(DelReqDto reqDto) {
+        return roleMapper.deleteByPrimaryKey(reqDto.getId());
     }
 }
