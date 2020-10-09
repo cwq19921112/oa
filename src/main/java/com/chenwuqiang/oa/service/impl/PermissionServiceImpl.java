@@ -42,4 +42,10 @@ public class PermissionServiceImpl implements PermissionService {
             permissionMapper.updateByPrimaryKeySelective(permission);
         }
     }
+
+    @Override
+    public List<Permission> selectAll() {
+        PermissionExample example = new PermissionExample();
+        return permissionMapper.selectByExample(example);
+    }
 }
