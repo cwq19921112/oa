@@ -45,11 +45,14 @@ public class RoleController {
 
     @PostMapping("/add")
     @ResponseBody
-    public RspDto modifyPost(@RequestParam int[] permissions,
-                             @RequestParam int id,
-                             @RequestParam String name) {
-        System.out.println(Arrays.toString(permissions));
-//        roleService.add(role);
+    public RspDto modifyPost(@RequestParam(required = false) int[] permissions,
+                             @RequestParam(required = false) Integer id,
+                             @RequestParam(required = false) String name) {
+        Role role = new Role();
+        role.setId(id);
+        role.setName(name);
+        roleService.add(role, permissions);
+
         return RspDto.buildSuccess();
     }
 

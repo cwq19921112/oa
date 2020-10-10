@@ -36,8 +36,9 @@
   $(function modify() {
     $("#modify-submit").click(function () {
       var uri = "/oa/role/add";
-      var formArr = $("#edit-form").serializeArray();
-      $.post(uri, formArr, function (data) {
+      var formData = $("#edit-form").serialize();
+      console.log(formData);
+      $.post(uri, formData, function (data) {
         if (data.code == "success") {
           // 登录成功 跳转页面
           window.location.href = "/oa/role/list";
@@ -46,6 +47,6 @@
         }
       });
     })
-  })
+  });
 </script>
 </html>

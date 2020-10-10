@@ -10,7 +10,7 @@ public interface RoleService {
 
     Role findById(Integer id);
 
-    void add(Role role);
+    void add(Role role, int[] permissions);
 
     int delete(DelReqDto reqDto);
 }

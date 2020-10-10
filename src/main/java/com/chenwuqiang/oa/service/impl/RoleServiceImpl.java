@@ -22,6 +22,7 @@ public class RoleServiceImpl implements RoleService {
     public PageInfo<Role> findPage(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         RoleExample example = new RoleExample();
+        example.setOrderByClause("id");
         List<Role> accountList = roleMapper.selectByExample(example);
         PageInfo<Role> pageInfo = new PageInfo<>(accountList);
         return pageInfo;
@@ -29,23 +30,32 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role findById(Integer id) {
-        return roleMapper.selectByPrimaryKey(id);
+        return roleMapper.selectRolePermissions(id);
     }
 
     @Override
-    public void add(Role role) {
+    public void add(Role role, int[] permissions) {
         Integer id = role.getId();
         if (id == null) {
             // 新增
             roleMapper.insertSelective(role);
+            id = role.getId();
         } else {
             // 编辑
             roleMapper.updateByPrimaryKeySelective(role);
+            // 删除role_permission
+            roleMapper.deleteRolePermission(id);
+        }
+        if (permissions != null && permissions.length > 0) {
+            // 批量插入role_permission
+            roleMapper.insertRolePermissions(id, permissions);
         }
     }
 
     @Override
     public int delete(DelReqDto reqDto) {
-        return roleMapper.deleteByPrimaryKey(reqDto.getId());
+        Integer id = reqDto.getId();
+        roleMapper.deleteRolePermission(id);
+        return roleMapper.deleteByPrimaryKey(id);
     }
 }

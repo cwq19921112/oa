@@ -5,6 +5,15 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
+
+  <resultMap id="RolePermissions" type="com.chenwuqiang.oa.entity.Role">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <collection property="permissions" ofType="com.chenwuqiang.oa.entity.Permission">
+      <result column="pid" jdbcType="VARCHAR" property="id" />
+      <result column="pname" jdbcType="VARCHAR" property="name" />
+    </collection>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -66,6 +75,22 @@
   <sql id="Base_Column_List">
     id, `name`
   </sql>
+  <delete id="deleteRolePermission">
+    delete from role_permission where role_id=#{id}
+  </delete>
+
+  <insert id="insertRolePermissions">
+    INSERT INTO role_permission(role_id, permission_id) VALUES
+    <foreach collection="permissions" item="item" separator=",">
+      (#{id}, #{item})
+    </foreach>
+  </insert>
+  <select id="selectRolePermissions" resultMap="RolePermissions">
+    SELECT r.*,p.id as pid,p.name as pname from role r
+    LEFT JOIN role_permission rp on r.id = rp.role_id
+    LEFT JOIN permission p on rp.permission_id=p.id
+    WHERE r.id=#{id}
+  </select>
   <select id="selectByExample" parameterType="com.chenwuqiang.oa.example.RoleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
