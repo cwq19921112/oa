@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/role")
@@ -37,8 +38,10 @@ public class RoleController {
     public String add(@RequestParam(required = false, name = "id") Integer id, Model model) {
         Role role = roleService.findById(id);
         model.addAttribute("role", role);
+        List<Integer> sPIds = role.getPermissions().stream().map(Permission::getId).collect(Collectors.toList());
         List<Permission> permissions = permissionService.selectAll();
         model.addAttribute("permissions", permissions);
+        model.addAttribute("sPIds", sPIds);
 
         return "/role/add";
     }

@@ -23,9 +23,9 @@
       <label for="id">id</label>
       <input th:value="${role} == null ? '' : ${role.id}" id="id" name="id" type="text" class="form-control" readonly>
     </div>
-    <label for="permissions">权限列表: </label>
+    <label>权限列表: </label>
     <span th:each="item : ${permissions}">
-      <input id="permissions" th:value="${item.id}" name="permissions" type="checkbox"> [[${item.name}]]
+      <input th:onload="'javascript:haha();'" th:id="${item.id}" th:value="${item.id}" name="permissions" type="checkbox"> [[${item.name}]]
     </span>
   </form>
   <button id="modify-submit" class="btn btn-default">确定</button>
@@ -33,6 +33,15 @@
 
 <!--javascript-->
 <script type="text/javascript">
+  $(function haha() {
+    var sPIds = [[${sPIds}]];
+    for (i = 0; i < sPIds.length; i++) {
+      var sId = sPIds[i];
+      console.log(sId);
+      document.getElementById(sId).checked = true;
+    }
+  });
+
   $(function modify() {
     $("#modify-submit").click(function () {
       var uri = "/oa/role/add";
