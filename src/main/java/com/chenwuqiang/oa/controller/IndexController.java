@@ -9,4 +9,9 @@ public class IndexController {
     public String index() {
         return "index";
     }
+
+    @RequestMapping("/noAuth")
+    public String noAuth() {
+        return "noAuth";
+    }
 }

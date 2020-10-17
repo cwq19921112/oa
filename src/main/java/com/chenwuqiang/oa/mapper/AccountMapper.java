@@ -11,5 +11,5 @@ import java.util.List;
  */
 @Repository
 public interface AccountMapper extends MyBatisBaseDao<Account, Integer, AccountExample> {
-    List<Account> selectByPermission();
+    Account selectByPermission(Account account);
 }

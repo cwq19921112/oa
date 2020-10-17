@@ -121,6 +121,7 @@
     inner join role r on ar.role_id = r.id
     left join role_permission rp on r.id = rp.role_id
     left join permission p on rp.permission_id=p.id
+    where a.user_name=#{userName} and a.password=#{password}
   </select>
 
   <select id="selectByExample" parameterType="com.chenwuqiang.oa.example.AccountExample" resultMap="BaseResultMap">

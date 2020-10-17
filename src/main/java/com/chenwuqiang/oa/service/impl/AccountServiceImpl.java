@@ -1,6 +1,5 @@
 package com.chenwuqiang.oa.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.chenwuqiang.oa.dto.DelReqDto;
 import com.chenwuqiang.oa.dto.RspDto;
 import com.chenwuqiang.oa.entity.Account;
@@ -36,22 +35,15 @@ public class AccountServiceImpl implements AccountService {
         if (StringUtils.isEmpty(loginName) || StringUtils.isEmpty(password)) {
             return null;
         }
-        AccountExample accountExample = new AccountExample();
-        accountExample.createCriteria().andUserNameEqualTo(loginName).andPasswordEqualTo(password);
-        List<Account> accountList = accountMapper.selectByExample(accountExample);
-        if (accountList.size() != 1) {
-            return null;
-        }
-        Account account = accountList.get(0);
+        Account condition = new Account();
+        condition.setUserName(loginName);
+        condition.setPassword(password);
+        Account account = accountMapper.selectByPermission(condition);
         return account;
     }
 
     @Override
     public PageInfo<Account> findPage(Integer pageNum, Integer pageSize) {
-        List<Account> accountsP = accountMapper.selectByPermission();
-        Account account = accountsP.get(0);
-        System.out.println("PAccount: " + JSONObject.toJSONString(account));
-
         PageHelper.startPage(pageNum, pageSize);
         AccountExample example = new AccountExample();
         List<Account> accountList = accountMapper.selectByExample(example);
