@@ -34,7 +34,9 @@
 <!--javascript-->
 <script type="text/javascript">
   $(function haha() {
+    console.log([[${sPIds}]]);
     var sPIds = [[${sPIds}]];
+    if (sPIds == null) return;
     for (i = 0; i < sPIds.length; i++) {
       var sId = sPIds[i];
       console.log(sId);

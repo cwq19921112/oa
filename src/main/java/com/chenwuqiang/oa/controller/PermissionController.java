@@ -22,14 +22,14 @@ public class PermissionController {
         model.addAttribute("permissionList", pageInfo.getList());
         model.addAttribute("pageInfo", pageInfo);
 
-        return "/permission/list";
+        return "permission/list";
     }
 
     @RequestMapping("/modify")
     public String modify(@RequestParam(required = false, name = "id") Integer id, Model model) {
         Permission permission = permissionService.selectById(id);
         model.addAttribute("p", permission);
-        return "/permission/modify";
+        return "permission/modify";
     }
 
     @PostMapping("/modify")

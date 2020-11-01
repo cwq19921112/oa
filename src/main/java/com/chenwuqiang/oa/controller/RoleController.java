@@ -10,8 +10,10 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,19 +33,23 @@ public class RoleController {
         model.addAttribute("roleList", pageInfo.getList());
         model.addAttribute("pageInfo", pageInfo);
 
-        return "/role/list";
+        return "role/list";
     }
 
     @RequestMapping("/add")
     public String add(@RequestParam(required = false, name = "id") Integer id, Model model) {
         Role role = roleService.findById(id);
         model.addAttribute("role", role);
-        List<Integer> sPIds = role.getPermissions().stream().map(Permission::getId).collect(Collectors.toList());
+        List<Integer> sPIds = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(role.getPermissions())) {
+            sPIds = role.getPermissions().stream().map(Permission::getId).collect(Collectors.toList());
+
+        }
         List<Permission> permissions = permissionService.selectAll();
         model.addAttribute("permissions", permissions);
         model.addAttribute("sPIds", sPIds);
 
-        return "/role/add";
+        return "role/add";
     }
 
     @PostMapping("/add")

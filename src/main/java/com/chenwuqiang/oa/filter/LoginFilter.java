@@ -3,6 +3,8 @@ package com.chenwuqiang.oa.filter;
 import com.chenwuqiang.oa.entity.Account;
 import com.chenwuqiang.oa.entity.Permission;
 import com.chenwuqiang.oa.entity.Role;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 @Component
 @WebFilter(urlPatterns = "/*")
 public class LoginFilter implements Filter {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginFilter.class);
     public static final List<String> whiteList = Arrays.asList("/account/validataAccount", "/account/login", "/account/list",
             "/account/register", "/account/reg-success", "/index", "/css", "/images", "/js", "/druid", "/noAuth");
 
@@ -26,6 +29,7 @@ public class LoginFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String requestURI = request.getRequestURI();
+        LOGGER.info("request uri:" + requestURI);
         for (String white : whiteList) {
             if (requestURI.contains(white)) {
                 filterChain.doFilter(servletRequest, servletResponse);
