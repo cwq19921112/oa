@@ -8,6 +8,10 @@ import com.chenwuqiang.oa.mapper.AccountMapper;
 import com.chenwuqiang.oa.service.AccountService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.tobato.fastdfs.domain.fdfs.MetaData;
+import com.github.tobato.fastdfs.domain.upload.FastFile;
+import com.github.tobato.fastdfs.service.FastFileStorageClient;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,15 +22,17 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.nio.file.Files;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountMapper accountMapper;
+
+    @Autowired
+    private FastFileStorageClient fc;
 
     @Value("${oa.uploadPath}")
     private String uploadPath;
@@ -80,11 +86,13 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void editAccount(HttpServletRequest request, Account account, MultipartFile filename) throws Exception{
         if (filename != null && !StringUtils.isEmpty(filename.getOriginalFilename())) {
-            String fileName = UUID.randomUUID() + filename.getOriginalFilename();
-            String path = uploadPath + fileName;
-            Files.write(new File(path).toPath(), filename.getBytes());
-            account.setHeadImgPath("/" + fileName);
-            
+            // 元数据
+            Set<MetaData> metaDataSet = new HashSet<MetaData>();
+            metaDataSet.add(new MetaData("CreateDate", new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
+            FastFile fastFile = new FastFile(filename.getInputStream(), filename.getSize(), FilenameUtils.getExtension(filename.getOriginalFilename()), metaDataSet);
+            String uploadFile = fc.uploadFile(fastFile).getFullPath();
+
+            account.setHeadImgPath(uploadFile);
             // 查用户
             Account existAccount = accountMapper.selectByPrimaryKey(account.getId());
             Account sessionAccount = (Account) request.getSession().getAttribute("account");
@@ -94,9 +102,17 @@ public class AccountServiceImpl implements AccountService {
                 request.getSession().setAttribute("account", sessionAccount);
             }
 
-            if (existAccount!=null && !StringUtils.isEmpty(existAccount.getHeadImgPath())) {
-                // 删除旧的头像文件
-                new File(uploadPath + "/" + existAccount.getHeadImgPath()).delete();
+            String headImgPath = existAccount.getHeadImgPath();
+            if (existAccount!=null && !StringUtils.isEmpty(headImgPath)) {
+                if (!headImgPath.contains("group")) {
+                    headImgPath = "/group1" + headImgPath;
+                }
+                try {
+                    // 删除旧的头像文件
+                    fc.deleteFile(headImgPath);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
         accountMapper.updateByPrimaryKeySelective(account);
