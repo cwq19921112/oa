@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 @Component
@@ -22,7 +21,8 @@ import java.util.stream.Collectors;
 public class LoginFilter implements Filter {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginFilter.class);
     public static final List<String> whiteList = Arrays.asList("/account/validataAccount", "/account/login", "/account/list",
-            "/account/register", "/account/reg-success", "/index", "/css", "/images", "/js", "/druid", "/noAuth");
+            "/account/register", "/account/reg-success", "/index", "/css", "/images", "/js", "/druid", "/noAuth", "/test/upload",
+            "/test/down");
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

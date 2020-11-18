@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -78,7 +79,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void editAccount(HttpServletRequest request, Account account, MultipartFile filename) throws Exception{
-        if (filename != null) {
+        if (filename != null && !StringUtils.isEmpty(filename.getOriginalFilename())) {
             String fileName = UUID.randomUUID() + filename.getOriginalFilename();
             String path = uploadPath + fileName;
             Files.write(new File(path).toPath(), filename.getBytes());
@@ -86,12 +87,17 @@ public class AccountServiceImpl implements AccountService {
             
             // 查用户
             Account existAccount = accountMapper.selectByPrimaryKey(account.getId());
+            Account sessionAccount = (Account) request.getSession().getAttribute("account");
+            if (Objects.equals(existAccount, sessionAccount)) {
+                // 更新session
+                sessionAccount.setHeadImgPath(account.getHeadImgPath());
+                request.getSession().setAttribute("account", sessionAccount);
+            }
+
             if (existAccount!=null && !StringUtils.isEmpty(existAccount.getHeadImgPath())) {
                 // 删除旧的头像文件
                 new File(uploadPath + "/" + existAccount.getHeadImgPath()).delete();
             }
-            // 更新session
-            request.getSession().setAttribute("account", account);
         }
         accountMapper.updateByPrimaryKeySelective(account);
     }
